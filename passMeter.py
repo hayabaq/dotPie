@@ -24,16 +24,16 @@ def findPos(char):
                 return [row,col]
 
 def passMeter ():
-    print(colored.red('-------------------------------------------'))
-    print('|                                         |')
-    print('|           Welcome to *****              |')
-    print('|                                         |')
-    print('|     the world amazing password meter    |')
-    print('|                                         |')
-    print('-------------------------------------------')
+    print(colored.yellow('-------------------------------------------'))
+    print(colored.yellow('|                                         |'))
+    print(colored.yellow('|           Welcome to *****              |'))
+    print(colored.yellow('|                                         |'))
+    print(colored.yellow('|     the world amazing password meter    |'))
+    print(colored.yellow('|                                         |'))
+    print(colored.yellow('-------------------------------------------'))
     print('')
    # while (True):
-    password = input(colored.green('Enter a password: '))
+    password = input(colored.yellow('Enter a password: '))
     print('')
     #validation variables
     length= False
@@ -43,52 +43,94 @@ def passMeter ():
     symbol= False
     dic= False
     pattern = False
-
+    total =0
 
     #check length 
     if(len(password)>=8):
         length = True
+       # total = total + (len(password)*4)
         print(colored.green('The password has more than 8 digits'))
     else:
         print(colored.red('The password should have at least 8 digits'))
-    
+    total = total + (len(password)*4)
+   # if length :
+   #     total = total + (len(password)*4)
+    #print(total)
     #check capital letters
+    capCounter=0
     for cap in password:
         if(cap.isupper()):
             capital=True 
-            print(colored.green('The password has at least one capital letter'))
-            break
-    if(not capital):
+            capCounter=capCounter+1
+           # print(colored.green('The password has at least one capital letter'))
+            #break
+    if capital:
+        total = total +((len(password)-capCounter)*2)
+        #print((len(password)-capCounter)*2)
+        print(colored.green('The password has at least one capital letter'))
+    else:
         print(colored.red('The password shoud have at least one capital letter'))
     
     #check lowercase letters
+    lowCounter=0
     for low in password:
         if(low.islower()):
             lower=True 
-            print(colored.green('The password has at least one lowercase letter'))
-            break
-    if(not lower):
+            lowCounter=lowCounter+1
+            #print(colored.green('The password has at least one lowercase letter'))
+            #break
+    if lower:
+        total = total +((len(password)-lowCounter)*2)
+        #print((len(password)-lowCounter)*2)
+        print(colored.green('The password has at least one lowercase letter'))
+    else:
         print(colored.red('The password shoud have at least one lowercase letter'))
     
     #check numbers
+    numCounter=0
+    midNumCount=0
     for num in password:
         if(num.isdigit()):
             number=True 
-            print(colored.green('The password has at least one number'))
-            break
-    if(not number):
+            numCounter=numCounter+1
+            #print(colored.green('The password has at least one number'))
+            #break
+    for i in range(1,len(password)-1):
+        if password[i].isdigit():
+            midNumCount=midNumCount+1
+    if number:
+        total=total+ (numCounter*4)
+        #print(numCounter*4)
+        #Bonus for middle numbers
+        total=total+(midNumCount*2)
+        print(colored.green('The password has at least one number'))
+    else:
         print(colored.red('The password shoud have at least one number'))
 
     #check symbols
-    char= ['!','@','#','$','%','^','&','*','-','.',':','?','+','=','_']
+    charCount=0
+    midCharCount=0
+    char=['!','@','#','$','%','^','&','*','(',')','-','+','=',',','.','/','\'',';',']','[','\\','~','`','<','>','?','"',':','{','}','|']
+    #char= ['!','@','#','$','%','^','&','*','-','.',':','?','+','=']
     for sym in password:
         if(sym in char):
             symbol=True 
-            print(colored.green('The password has at least one symbol'))
-            break
-    if(not symbol):
+            charCount=charCount+1
+            #print(colored.green('The password has at least one symbol'))
+            #break
+    for i in range(1,len(password)-1):
+        if password[i] in char:
+            midCharCount=midCharCount+1
+    if symbol:
+        total=total+(charCount*6)
+        #Bonus for middle symbols
+        total =total+(midCharCount*2)
+        #print(charCount*6)
+        print(colored.green('The password has at least one symbol'))
+    else:
         print(colored.red('The password shoud have at least one symbol'))
     
+
     #check keyboard pattern 
     pos=[]
     for ch in password: 
@@ -136,6 +178,9 @@ def passMeter ():
     if(not dic):
         print(colored.green('You are lucky. They did not discover your password :) ')) 
 
+    #Calculations
+
+    print(total)
 passMeter()
 
 
