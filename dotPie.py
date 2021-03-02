@@ -11,6 +11,7 @@ import os , sys
 #        ['a','s','d','f','g','h','j','k','l',';','\''],
 #        ['z','x','c','v','b','n','m',',','.','/']
 #        ]
+#Get the position of each char
 def findPos(char):
     key=[
         ['!','@','#','$','%','^','&','*','(',')','-','+'],
@@ -23,17 +24,18 @@ def findPos(char):
     for row in range(len(key)):
         for col in range(len(key[row])):
             if(char == key[row][col]):
-                return [row,col]
+                return [row,col] 
 
 def passMeter ():
-    print('-------------------------------------------')
+
+    print('\n\n-------------------------------------------')
     print('|                                         |')
     print('|          Welcome to dotPie              |')
     print('|                                         |')
     print('|     the world amazing password meter    |')
     print('|                                         |')
-    print('-------------------------------------------')
-    print('')
+    print('-------------------------------------------\n')
+
     while (True):
         print('Enter 1 to check password')
         print('Enter 2 to exit')
@@ -42,6 +44,7 @@ def passMeter ():
         if option == '1':
             password = input('Enter a password: ')
             print('')
+            
             #validation variables
             length= False
             capital = False
@@ -60,10 +63,11 @@ def passMeter ():
             for word in dictionary:
                 if word.rstrip() == password:
                     dic = True
-                    print('The password is a dictionary word')
+                    total=total -10
+                    print('The password is a dictionary word -10')
                     break
             if not dic:
-                print('You are lucky it is not in the  :) ')
+                print('You are lucky it is not in the dictionary :) -0')
 
             
             #check length 
@@ -73,6 +77,8 @@ def passMeter ():
             else:
                 print('The password should have at least 8 digits '+'+'+str(len(password)*4))
             total = total + (len(password)*4)
+
+            #check capital letters 
             capCounter=0
             for cap in password:
                 if(cap.isupper()):
@@ -164,13 +170,13 @@ def passMeter ():
             i=0
             rCount=0
             cCount=0
-            patCounter=-1
-            while row<4 and col<10 and i<len(pos):
+            patCounter=0
+            while row<=4 and col<=12 and i<len(pos):
                 if pos[i][0]==row :
                     rCount=rCount+1
                 if pos[i][1]==col :
                     cCount=cCount+1
-                if cCount>=2 or rCount>=2:
+                if cCount>2 or rCount>2:
                     pattern = True
                     patCounter=patCounter+1
                 if pos[i][0] != row:
@@ -202,7 +208,7 @@ def passMeter ():
             else:
                 print('You are the master of unrepeated characters'+' -0')
 
-            #sequential 
+            #check sequential 
             seqCount=0 
             for i in range(len(password)):
                 if i+1< len(password): 
@@ -244,18 +250,17 @@ def passMeter ():
                 print('Score: 1')
             print('')
         elif option == '2':
-            print('')
-            print('#############################')
+            print('\n#############################')
             print('#                           #')
             print('#          Bye Bye          #')
             print('#                           #')
             print('#############################')
+            print('\n\n')
             break
         else:
-            print(' ')
-            print('Invalid option')
-            print('')
+
+            print('\nInvalid option\n')
+
 	
 		    
 passMeter()
-
